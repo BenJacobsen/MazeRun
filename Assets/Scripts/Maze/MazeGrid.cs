@@ -6,7 +6,6 @@ public class MazeGrid {
     public Cell[,] GridForm;
     public List<Cell> ListForm;
     public int Dimension;
-    public Cell Current;
 
     public MazeGrid ()
     {
@@ -17,18 +16,15 @@ public class MazeGrid {
         Dimension = dim;
         GridForm = new Cell[dim, dim];
         ListForm = new List<Cell>(dim * dim);
-        int keycount = 0;
-        Current = new Cell();
         for (int y = 0; y < dim; y++)
         {
             for (int x = 0; x < dim; x++)
             {
-                Cell cell = new Cell(x, y, keycount);
+                Cell cell = new Cell(x, y);
                 cell.ApplyWallsFromList(BoundCheck(cell));
                 GridForm[x, y] = cell;
 
                 ListForm.Add(cell);
-                keycount++;
             }
         }
     }
@@ -119,40 +115,20 @@ public class MazeGrid {
         return WallList;
     }
 
-    public List<Direction> PathFind(Cell cellToFindFor)
+    public List<Cell> getConnectedCells(Cell cellToFindFor)
     {
-        List<Direction> OpenPaths = Current.NoWalls();
-        List<Direction> Paths = new List<Direction>();
+        //cell check
+        List<Direction> noWallDirections = cellToFindFor.NoWalls();
+        List<Cell> Paths = new List<Cell>();
         if (cellToFindFor.X == -1 || cellToFindFor.Y == -1)
         {
             return null;
         }
-        foreach (Direction direction in OpenPaths)
+        foreach (Direction direction in noWallDirections)
         {
-            if (!NextTo(cellToFindFor, direction).Explored)
-            {
-                Paths.Add(direction);
-            }
+            Paths.Add(NextTo(cellToFindFor, direction));
         }
         return Paths;
     }
-
-    public void CurrAdvance(Direction direction)
-    {
-        Current = NextTo(Current, direction);
-        Current.Explored = true;
-        Current.BackDir = DirectionInfo.Reverse(direction);
-    }
-
-    public void CurrReverse()
-    {
-        Current = NextTo(Current, Current.BackDir);
-    }
-
-    public void ClearExplored ()
-    {
-        ListForm.ForEach(x => x.Explored = false);
-    }
-
 }
 

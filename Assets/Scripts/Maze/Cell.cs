@@ -3,31 +3,25 @@ using System.Collections.Generic;
 
 public class Cell
 {
-    public bool Explored;
-    public Direction BackDir;
     public bool N;
     public bool S;
     public bool E;
     public bool W;
     public int X;
     public int Y;
-    public int Key;
-    public int GroupIndex;
     public Cell()
     {
 
     }
 
-    public Cell(int coorx, int coory, int key)
+    public Cell(int coorx, int coory)
     {
-        Explored = false;
         N = false;
         S = false;
         E = false;
         W = false;
         X = coorx;
         Y = coory;
-        Key = key;
     }
 
     public List<Direction> WallCheck()

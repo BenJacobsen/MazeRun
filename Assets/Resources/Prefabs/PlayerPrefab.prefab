@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 23227207979971710}
   - component: {fileID: 136862485817259618}
   - component: {fileID: 54749927435457730}
-  - component: {fileID: 114191771021294858}
   - component: {fileID: 114046538473915294}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -188,26 +187,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732030057462182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b22cb32d3196b45ad90cf0cf1bde47, type: 3}
+  m_Script: {fileID: 11500000, guid: 29d65a422d02b2547a0770ea90d9a238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 0
   runSpeed: 0
-  maxVelocityChange: 10
+  maxVelocityChange: 0
   rb: {fileID: 0}
-  TurnSpeed: 2
---- !u!114 &114191771021294858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732030057462182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2734736f667e9d4f9cc15a9b7c4919c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 0
+  TurnSpeed: 0
 --- !u!136 &136862485817259618
 CapsuleCollider:
   m_ObjectHideFlags: 1

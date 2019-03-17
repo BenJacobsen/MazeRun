@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 
-public class CharacterControls : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     public float walkSpeed;
     public float runSpeed;
