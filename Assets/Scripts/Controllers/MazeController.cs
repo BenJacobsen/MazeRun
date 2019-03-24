@@ -7,35 +7,34 @@ public class MazeController : MonoBehaviour {
     public MazeBuild Build;
 
     public bool IsMazeBuilt;
-    public bool isGameOver;
     public bool isPlayerWinner;
     public MazeGrid maze;
     private int Dimension;
     private int Sparsity;
-    private Camera MenuCamera;
     private Camera MazeCamera;
+    private MenuController MenuCtrler;
     void Start()
     {
         IsMazeBuilt = false;
         Dimension = 20;
         Sparsity = 1;
+        MenuCtrler = GameObject.Find("MenuController").GetComponent<MenuController>();
     }
 
     void Update()
     {
-        if ( IsMazeBuilt && !isGameOver)
+        if ( IsMazeBuilt )
         {
             foreach (GameObject key in Build.KeyPieces)
             {
                 if (!key.GetComponent<KeyPieceController>().collected)
                 {
-                    return;
+                    break;
                 }
-
+                DeleteMaze();
+                MenuCtrler.SetEndScreen(true);
             }
 
-            isGameOver = true;
-            isPlayerWinner = true;
         }
     }
 

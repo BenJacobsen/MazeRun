@@ -17,10 +17,7 @@ public class MenuController : MonoBehaviour {
     private Camera MenuCamera;
     private Menu NewMenu;
 
-    private MazeController MazeCtrler;
-
 	void Start () {
-        MazeCtrler = GameObject.Find("MazeController").GetComponent<MazeController>();
         NewMenu = Menu.Main;
         CurrentMenu = Menu.Main;
         MenuCamera = GameObject.Find("MenuCamera").GetComponent<Camera>();
@@ -44,7 +41,7 @@ public class MenuController : MonoBehaviour {
 
 	void Update () {
         if (CurrentMenu == Menu.None || CurrentMenu == Menu.Pause ||
-            CurrentMenu == Menu.InGameSettings || CurrentMenu == Menu.EndGame)
+            CurrentMenu == Menu.InGameSettings)
         {
             MenuCamera.enabled = false;
         }
@@ -79,11 +76,11 @@ public class MenuController : MonoBehaviour {
         {
             EscapePress();
         }
+    }
 
-        if (MazeCtrler.isGameOver)
-        {
-            ChangeMenuTo("EndGame");
-        }
+    public void SetEndScreen (bool isWinnerPlayer)
+    {
+        ChangeMenuTo("EndGame");
     }
 
     private GameObject GetMenu(Menu menu)
