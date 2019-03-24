@@ -1,24 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Maze;
 
 public class MinotaurController : MonoBehaviour {
-    public enum AIState { GoToWaypoint, SeePlayer }
-    public AIState currentState;
-    public Cell waypoint;
+    public enum AIState { Startup, GoToWaypoint, SeePlayer }
+    public float speed = 3F;
+    public AIState CurrentState;
 
-    // Use this for initialization
+    private GameObject minotaur;
+    private MazeGrid m_maze;
+    private Cell m_waypoint;
+    private List<Cell> m_pathToWayPoint;
+
     void Start () {
-        currentState = AIState.GoToWaypoint;
+        minotaur = this.gameObject;
+        m_maze = GameObject.Find("MazeController").GetComponent<MazeController>().maze;
+        setNewRandomWayPoint();
+        CurrentState = AIState.GoToWaypoint;
+        
 	}
 	
-	// Update is called once per frame
 	void Update () {
-        switch (currentState) {
+        switch (CurrentState) {
             case AIState.GoToWaypoint:
-                
+                updateLocation();
+                if (m_pathToWayPoint.Count == 0)
+                {
+                    setNewRandomWayPoint();
+                }
+                break;
+
+            default:
+                break;
+        }
+        if (CurrentState != AIState.Startup)
+        {
+            float step = speed * Time.deltaTime;
+            minotaur.transform.position = Vector3.MoveTowards(minotaur.transform.position, centerCellPosition(m_pathToWayPoint[0]), step);
         }
 	}
 
-    void getDirection
+    private void updateLocation() {
+        if (m_pathToWayPoint != null)
+        {
+            float dist = Vector3.Distance(centerCellPosition(m_pathToWayPoint[0]), minotaur.transform.position);
+            if (dist < 0.2F)
+            {
+                m_pathToWayPoint.Remove(m_pathToWayPoint[0]);
+
+            }
+        }
+    }
+
+    private Vector3 centerCellPosition(Cell cell)
+    {
+        return new Vector3((3 * cell.X) + 1.5F, 1.5F, (3 * cell.Y) + 1.5F);
+    }
+
+    private void setNewRandomWayPoint()
+    {
+        m_waypoint = m_maze.getRandomCell();
+        m_pathToWayPoint = ShortestPathFinder.Find(m_maze, getClosestCell(), m_waypoint);
+    }
+
+    private Cell getClosestCell ()
+    {
+        return m_maze.GridForm[(int)(minotaur.transform.position.x / 3), (int)(minotaur.transform.position.z / 3)];
+    }
 }

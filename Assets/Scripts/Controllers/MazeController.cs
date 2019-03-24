@@ -9,7 +9,7 @@ public class MazeController : MonoBehaviour {
     public bool IsMazeBuilt;
     public bool isGameOver;
     public bool isPlayerWinner;
-    private MazeGrid maze;
+    public MazeGrid maze;
     private int Dimension;
     private int Sparsity;
     private Camera MenuCamera;

@@ -9,29 +9,43 @@ namespace Assets.Scripts.Maze
 {
     class ShortestPathFinder
     {
-        public static List<Cell> Find (MazeGrid maze, Cell startPoint, Cell endPoint)
+        public class ShortestPathFinderCellInfo
+        {
+            public ShortestPathFinderCellInfo()
+            {
+                Explored = false;
+            }
+            public bool Explored;
+        }
+
+        public static List<Cell> Find(MazeGrid maze, Cell startPoint, Cell endPoint)
         {
 
-            maze.ListForm
-            bool endFound = false;
+            Dictionary<Cell, ShortestPathFinderCellInfo> cellInfoDictionary = new Dictionary<Cell, ShortestPathFinderCellInfo>();
+            maze.ListForm.ForEach((x) => cellInfoDictionary.Add(x, new ShortestPathFinderCellInfo()));
             List<List<Cell>> paths = new List<List<Cell>> { new List<Cell>() { startPoint } };
-            List<List<Cell>> newPaths;
 
-            while (endFound == false)
+            while (paths.Count != 0)
             {
+                List<List<Cell>> newPaths = new List<List<Cell>>();
                 foreach (List<Cell> path in paths)
                 {
-                    foreach (Cell openCell in maze.PathFind(path.Last()))
+                    List<Cell> openCells = maze.getConnectedCells(path.Last()).Where((x) => !cellInfoDictionary[x].Explored).ToList();
+                    foreach (Cell openCell in openCells)
                     {
-
+                        cellInfoDictionary[openCell].Explored = true;
+                        List<Cell> newPath = new List<Cell>(path);
+                        newPath.Add(openCell);
+                        if (openCell == endPoint)
+                        {
+                            return newPath;
+                        }
+                        newPaths.Add(newPath);
                     }
                 }
-                paths.ForEach((x) => {
-
-                    endFound = (x.Last === endPoint);
-
-                });
-                newPaths.ForEach()
-            } 
+                paths = newPaths;
+            }
+            throw new InvalidProgramException("The points that were used as arguments are not connected in the maze, thus there is no path.");
         }
+    }
 }

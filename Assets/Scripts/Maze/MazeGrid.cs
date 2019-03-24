@@ -6,6 +6,7 @@ public class MazeGrid {
     public Cell[,] GridForm;
     public List<Cell> ListForm;
     public int Dimension;
+    private static System.Random m_rnd;
 
     public MazeGrid ()
     {
@@ -13,6 +14,7 @@ public class MazeGrid {
     }
     public MazeGrid(int dim)
     {
+        m_rnd = new System.Random();
         Dimension = dim;
         GridForm = new Cell[dim, dim];
         ListForm = new List<Cell>(dim * dim);
@@ -129,6 +131,11 @@ public class MazeGrid {
             Paths.Add(NextTo(cellToFindFor, direction));
         }
         return Paths;
+    }
+
+    public Cell getRandomCell ()
+    {
+        return ListForm[m_rnd.Next(ListForm.Count)];
     }
 }
 
