@@ -5,7 +5,7 @@ using Assets.Scripts.Maze;
 
 public class MinotaurController : MonoBehaviour {
     public enum AIState { Startup, GoToWaypoint, SeePlayer }
-    public float speed = 3F;
+    public float speed = 5F;
     public AIState CurrentState;
 
     private GameObject minotaur;
@@ -16,7 +16,7 @@ public class MinotaurController : MonoBehaviour {
     void Start () {
         minotaur = this.gameObject;
         m_maze = GameObject.Find("MazeController").GetComponent<MazeController>().maze;
-        setNewRandomWayPoint();
+        setNewRandomWayPointPath();
         CurrentState = AIState.GoToWaypoint;
         
 	}
@@ -27,7 +27,7 @@ public class MinotaurController : MonoBehaviour {
                 updateLocation();
                 if (m_pathToWayPoint.Count == 0)
                 {
-                    setNewRandomWayPoint();
+                    setNewRandomWayPointPath();
                 }
                 break;
 
@@ -36,6 +36,7 @@ public class MinotaurController : MonoBehaviour {
         }
         if (CurrentState != AIState.Startup)
         {
+            minotaur.transform.LookAt(centerCellPosition(m_pathToWayPoint[0]));
             float step = speed * Time.deltaTime;
             minotaur.transform.position = Vector3.MoveTowards(minotaur.transform.position, centerCellPosition(m_pathToWayPoint[0]), step);
         }
@@ -58,10 +59,10 @@ public class MinotaurController : MonoBehaviour {
         return new Vector3((3 * cell.X) + 1.5F, 1.5F, (3 * cell.Y) + 1.5F);
     }
 
-    private void setNewRandomWayPoint()
+    private void setNewRandomWayPointPath()
     {
         m_waypoint = m_maze.getRandomCell();
-        m_pathToWayPoint = ShortestPathFinder.Find(m_maze, getClosestCell(), m_waypoint);
+        m_pathToWayPoint = ShortestPathFinder.Trim(m_maze, untrimmedPath);
     }
 
     private Cell getClosestCell ()
