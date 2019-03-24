@@ -62,7 +62,8 @@ public class MinotaurController : MonoBehaviour {
     private void setNewRandomWayPointPath()
     {
         m_waypoint = m_maze.getRandomCell();
-        m_pathToWayPoint = ShortestPathFinder.Trim(m_maze, untrimmedPath);
+        List<Cell> untrimmedPath = ShortestPathFinder.Find(m_maze, getClosestCell(), m_waypoint);
+        m_pathToWayPoint = ShortestPathFinder.CreateTrimmedPath(m_maze, untrimmedPath);
     }
 
     private Cell getClosestCell ()

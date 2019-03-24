@@ -47,5 +47,49 @@ namespace Assets.Scripts.Maze
             }
             throw new InvalidProgramException("The points that were used as arguments are not connected in the maze, thus there is no path.");
         }
+
+        //remove intermediate cells between cells that have a clear path between them
+        public static List<Cell> CreateTrimmedPath(MazeGrid maze, List<Cell> path)
+        {
+            List<Cell> trimmedPath = new List<Cell>(path);
+            Cell startCell = trimmedPath[0];
+            while(startCell != trimmedPath.Last())
+            {
+                int startCellIndex = trimmedPath.FindIndex((cell) => cell == startCell);
+                int endCellIndex = startCellIndex + 1;
+
+                while(endCellIndex < trimmedPath.Count && HasClearPathBetween(maze, startCell, trimmedPath[endCellIndex]))
+                {
+                    endCellIndex++;
+                }
+                if (endCellIndex - startCellIndex > 2)
+                {
+                    trimmedPath.RemoveRange(startCellIndex + 1, (endCellIndex - startCellIndex) - 2);
+                }
+                startCell = trimmedPath[startCellIndex + 1];
+            }
+            return trimmedPath;
+        }
+        //if there were a rectangle with the two points on opposing corners, return true if there are no walls inside rectangle
+        public static bool HasClearPathBetween(MazeGrid maze, Cell firstPoint, Cell secondPoint)
+        {
+            int xlower = Math.Min(firstPoint.X, secondPoint.X);
+            int xupper = Math.Max(firstPoint.X, secondPoint.X);
+            int ylower = Math.Min(firstPoint.Y, secondPoint.Y);
+            int yupper = Math.Max(firstPoint.Y, secondPoint.Y);
+            for (int xpos = xlower; xpos <= xupper; xpos++)
+            {
+                for (int ypos = ylower; ypos <= yupper; ypos++)
+                {
+                    Cell cellToCheck = maze.GridForm[xpos, ypos];
+                    if ((cellToCheck.W && xpos != xlower) || (cellToCheck.E && xpos != xupper) || (cellToCheck.S && ypos != ylower)
+                        || (cellToCheck.N && ypos != yupper))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }
