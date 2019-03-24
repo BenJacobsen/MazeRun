@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Materials\AlgGrid.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\CharacterControls.cs" />
+    <Compile Include="Assets\Scripts\Controllers\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Controllers\KeyPieceController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MazeController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MenuController.cs" />
