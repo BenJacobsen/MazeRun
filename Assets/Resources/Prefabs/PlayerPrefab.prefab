@@ -190,11 +190,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d65a422d02b2547a0770ea90d9a238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaught: 0
   walkSpeed: 0
   runSpeed: 0
   maxVelocityChange: 0
   rb: {fileID: 0}
   TurnSpeed: 0
+  Collider: {fileID: 0}
 --- !u!136 &136862485817259618
 CapsuleCollider:
   m_ObjectHideFlags: 1

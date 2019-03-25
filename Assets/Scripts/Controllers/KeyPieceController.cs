@@ -5,21 +5,23 @@ using UnityEngine;
 public class KeyPieceController : MonoBehaviour {
     public Collider Collider;
     public bool collected;
-    private GameObject Player;
     // Use this for initialization
     void Start () {
         Collider = GetComponent<Collider>();
-        Player = GameObject.Find("Player");
         collected = false;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == Player)
+        if (collision.gameObject == GameObject.Find("Player"))
         {
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
             collected = true;
+        }
+        else
+        {
+            Physics.IgnoreCollision(collision.collider, Collider);
         }
 
     }

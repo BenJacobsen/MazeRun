@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Menu { Main, GameSetup, MainSettings, InGameSettings, Pause, EndGame, None}
 
@@ -81,6 +82,15 @@ public class MenuController : MonoBehaviour {
     public void SetEndScreen (bool isWinnerPlayer)
     {
         ChangeMenuTo("EndGame");
+        GameObject endText = GameObject.Find("EndGameText");
+        if (isWinnerPlayer)
+        {
+            endText.GetComponent<Text>().text = "You Wins!";
+        }
+        else
+        {
+            endText.GetComponent<Text>().text = "You were caught by the minotaur!";
+        }
     }
 
     private GameObject GetMenu(Menu menu)

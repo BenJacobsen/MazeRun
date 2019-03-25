@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class MazeController : MonoBehaviour {
     public MazeBuild Build;
 
-    public bool IsMazeBuilt;
     public bool isPlayerWinner;
     public MazeGrid maze;
     private int Dimension;
@@ -15,7 +14,7 @@ public class MazeController : MonoBehaviour {
     private MenuController MenuCtrler;
     void Start()
     {
-        IsMazeBuilt = false;
+        Build = new MazeBuild();
         Dimension = 20;
         Sparsity = 1;
         MenuCtrler = GameObject.Find("MenuController").GetComponent<MenuController>();
@@ -23,18 +22,26 @@ public class MazeController : MonoBehaviour {
 
     void Update()
     {
-        if ( IsMazeBuilt )
+        int collectedKeyCount = 0;
+        if (Build.IsBuilt)
         {
             foreach (GameObject key in Build.KeyPieces)
             {
-                if (!key.GetComponent<KeyPieceController>().collected)
+                if (key.GetComponent<KeyPieceController>().collected)
                 {
-                    break;
+                    collectedKeyCount += 1;
                 }
+            }
+            if (collectedKeyCount == 4)
+            {
                 DeleteMaze();
                 MenuCtrler.SetEndScreen(true);
             }
-
+            if (Build.Player.GetComponent<CharacterController>().IsCaught)
+            {
+                DeleteMaze();
+                MenuCtrler.SetEndScreen(false);
+            }
         }
     }
 
@@ -46,14 +53,9 @@ public class MazeController : MonoBehaviour {
 
     public void GenerateMaze()
     {
-        if (IsMazeBuilt)
-        {
-            DeleteMaze();
-        }
 
         maze = RandomMaze.Apply(Dimension, Sparsity);
-        Build = new MazeBuild(maze);
-        IsMazeBuilt = true;
+        Build.NewBuild(maze);
         GameObject.Find("PlayerCamera").GetComponent<Camera>().enabled = true;
     }
 
@@ -61,8 +63,6 @@ public class MazeController : MonoBehaviour {
     {
         GameObject.Find("PlayerCamera").GetComponent<Camera>().enabled = false;
         Build.DeleteMaze();
-
-        IsMazeBuilt = false;
     }
 
 }

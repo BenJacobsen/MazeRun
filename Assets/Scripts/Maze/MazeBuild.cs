@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MazeBuild{
-    public GameObject KeyPiece = Resources.Load("Prefabs/KeyPiecePrefab") as GameObject;
+    public bool IsBuilt = false;
     public GameObject Player;
     public GameObject Minotaur;
 
@@ -21,13 +22,22 @@ public class MazeBuild{
     public List<GameObject> WallList = new List<GameObject>();
     public List<GameObject> KeyPieces = new List<GameObject>();
 
-    public int dim; 
+    public int dim;
 
-    public MazeBuild(MazeGrid grid)
+    public MazeBuild()
     {
+        IsBuilt = false;
+    }
+
+    public void NewBuild(MazeGrid grid)
+    {
+        if (IsBuilt)
+        {
+            DeleteMaze();
+        }
         rnd = new System.Random();
-        Player = Object.Instantiate(Resources.Load("Prefabs/PlayerPrefab") as GameObject);
-        Minotaur = Object.Instantiate(Resources.Load("Prefabs/MinotaurPrefab") as GameObject);
+        Player = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerPrefab") as GameObject);
+        Minotaur = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/MinotaurPrefab") as GameObject);
         dim = grid.Dimension;
         Player.name = "Player";
         Minotaur.name = "Minotaur";
@@ -112,33 +122,36 @@ public class MazeBuild{
         Minotaur.transform.position = new Vector3(1.5F, 1, 1.5F);
 
         //create key pieces
-        GameObject kpRed = Object.Instantiate(KeyPiece, new Vector3(rndLowerPos(), 1, rndLowerPos()), Quaternion.identity);
+        GameObject kpRed = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/KeyPiecePrefab") as GameObject, new Vector3(rndLowerPos(), 1, rndLowerPos()), Quaternion.identity);
         kpRed.GetComponent<Renderer>().material = Pink;
         kpRed.name = "RedKP";
         KeyPieces.Add(kpRed);
 
-        GameObject kpOrange = Object.Instantiate(KeyPiece, new Vector3(rndUpperPos(), 1, rndLowerPos()), Quaternion.identity);
+        GameObject kpOrange = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/KeyPiecePrefab") as GameObject, new Vector3(rndUpperPos(), 1, rndLowerPos()), Quaternion.identity);
         kpOrange.GetComponent<Renderer>().material = Yellow;
         kpOrange.name = "OrangeKP";
         KeyPieces.Add(kpOrange);
 
-        GameObject kpBlue = Object.Instantiate(KeyPiece, new Vector3(rndLowerPos(), 1, rndUpperPos()), Quaternion.identity);
+        GameObject kpBlue = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/KeyPiecePrefab") as GameObject, new Vector3(rndLowerPos(), 1, rndUpperPos()), Quaternion.identity);
         kpBlue.GetComponent<Renderer>().material = LBlue;
         kpBlue.name = "BlueKP";
         KeyPieces.Add(kpBlue);
 
-        GameObject kpGreen = Object.Instantiate(KeyPiece, new Vector3(rndUpperPos(), 1, rndUpperPos()), Quaternion.identity);
+        GameObject kpGreen = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/KeyPiecePrefab") as GameObject, new Vector3(rndUpperPos(), 1, rndUpperPos()), Quaternion.identity);
         kpGreen.GetComponent<Renderer>().material = LGreen;
         kpGreen.name = "GreenKP";
         KeyPieces.Add(kpGreen);
+
+        IsBuilt = true;
     }
 
     public void DeleteMaze ()
     {
+        IsBuilt = false;
         DeleteObjectList(WallList);
         DeleteObjectList(KeyPieces);
-        Object.Destroy(Player);
-        Object.Destroy(Minotaur);
+        UnityEngine.Object.Destroy(Player);
+        UnityEngine.Object.Destroy(Minotaur);
     }
 
     private void MakeNWall(int x, int y)
@@ -168,7 +181,7 @@ public class MazeBuild{
         {
             GameObject thing = list[list.Count - 1];
             list.Remove(thing);
-            Object.Destroy(thing);
+            UnityEngine.Object.Destroy(thing);
         }
     }
 

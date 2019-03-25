@@ -5,14 +5,18 @@
 
 public class CharacterController : MonoBehaviour
 {
+    public bool IsCaught;
     public float walkSpeed;
     public float runSpeed;
     public float maxVelocityChange;
     public Rigidbody rb;
     public float TurnSpeed;
+    public Collider Collider;
 
     void Start()
     {
+        Collider = GetComponent<Collider>();
+        IsCaught = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         maxVelocityChange = 200.0f;
@@ -41,6 +45,15 @@ public class CharacterController : MonoBehaviour
 
         float turn = Input.GetAxis("Mouse X") * TurnSpeed;
         transform.Rotate(0, turn, 0);
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == GameObject.Find("Minotaur"))
+        {
+            IsCaught = true;
+        }
 
     }
 }

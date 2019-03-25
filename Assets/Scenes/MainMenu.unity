@@ -2608,7 +2608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94abb8f79beccc74597834b34de3b2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMazeBuilt: 0
   isPlayerWinner: 0
 --- !u!4 &1090465173
 Transform:
@@ -3276,7 +3275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9699314, b: 0.1527234, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3296,7 +3295,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player Wins!
+  m_Text: 
 --- !u!222 &1475498654
 CanvasRenderer:
   m_ObjectHideFlags: 0
