@@ -56,7 +56,7 @@ public class MinotaurController : MonoBehaviour {
 
     private Vector3 centerCellPosition(Cell cell)
     {
-        return new Vector3((3 * cell.X) + 1.5F, 1.5F, (3 * cell.Y) + 1.5F);
+        return new Vector3((3 * cell.X) + 1.5F, minotaur.transform.position.y, (3 * cell.Y) + 1.5F);
     }
 
     private void setNewRandomWayPointPath()

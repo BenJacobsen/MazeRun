@@ -37,7 +37,7 @@ public class MazeController : MonoBehaviour {
                 DeleteMaze();
                 MenuCtrler.SetEndScreen(true);
             }
-            if (Build.Player.GetComponent<CharacterController>().IsCaught)
+            if (Vector3.Distance(Build.Player.transform.position, Build.Minotaur.transform.position) < 1.4F)
             {
                 DeleteMaze();
                 MenuCtrler.SetEndScreen(false);

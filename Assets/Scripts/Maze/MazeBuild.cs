@@ -37,7 +37,7 @@ public class MazeBuild{
         }
         rnd = new System.Random();
         Player = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerPrefab") as GameObject);
-        Minotaur = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/MinotaurPrefab") as GameObject);
+        Minotaur = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/Minotaur") as GameObject);
         dim = grid.Dimension;
         Player.name = "Player";
         Minotaur.name = "Minotaur";
@@ -119,7 +119,7 @@ public class MazeBuild{
         //set player positions
         Player.transform.position = new Vector3((3 * rnd.Next(dim)) + 1.5F, 1, (3 * rnd.Next(dim)) + 1.5F);
 
-        Minotaur.transform.position = new Vector3(1.5F, 1, 1.5F);
+        Minotaur.transform.position = new Vector3(1.5F, 0F, 1.5F);
 
         //create key pieces
         GameObject kpRed = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/KeyPiecePrefab") as GameObject, new Vector3(rndLowerPos(), 1, rndLowerPos()), Quaternion.identity);

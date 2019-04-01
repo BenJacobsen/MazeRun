@@ -33,7 +33,7 @@ public class CharacterController : MonoBehaviour
 
         Vector3 velocity = rb.velocity;
         Vector3 velocityChange;
- 
+
         velocityChange.x = (targetVelocity.x - velocity.x);
 
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
@@ -45,15 +45,6 @@ public class CharacterController : MonoBehaviour
 
         float turn = Input.GetAxis("Mouse X") * TurnSpeed;
         transform.Rotate(0, turn, 0);
-
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == GameObject.Find("Minotaur"))
-        {
-            IsCaught = true;
-        }
 
     }
 }

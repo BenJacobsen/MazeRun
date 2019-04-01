@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Materials\AlgGrid.cs" />
-    <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Controllers\KeyPieceController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MazeController.cs" />
@@ -74,8 +73,6 @@
     <Compile Include="Assets\Scripts\Maze\MazeGrid.cs" />
     <Compile Include="Assets\Scripts\Maze\RandomMaze.cs" />
     <Compile Include="Assets\Scripts\Maze\ShortestPathFinder.cs" />
-    <Compile Include="Assets\Scripts\PauseScript.cs" />
-    <Compile Include="Assets\Scripts\TurnCamera.cs" />
     <Compile Include="Assets\UI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\UI\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\UI\Scripts\ChangeColor.cs" />
