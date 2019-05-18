@@ -60,8 +60,7 @@ public class MazeBuild{
         }
 
         // make north wall
-        GameObject nWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        nWall.GetComponent<Renderer>().material = Gray;
+        GameObject nWall = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/WallPrefab") as GameObject);
         nWall.transform.localScale = new Vector3(dim * 3, 3, 0.25F);
         nWall.transform.position = new Vector3(dim * 1.5F, 1.5F, dim * 3);
         // duplicate for south wall
@@ -156,9 +155,7 @@ public class MazeBuild{
 
     private void MakeNWall(int x, int y)
     {
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        wall.GetComponent<Renderer>().material = Gray;
-        wall.transform.localScale = new Vector3(3, 3, 0.25F);
+        GameObject wall = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/WallPrefab") as GameObject);
         wall.transform.position = new Vector3((3 * x) + 1.5F, 1.5F, 3 * (y + 1));
         wall.name = "NWall (" + x.ToString() + ", " + y.ToString() + ")";
         WallList.Add(wall);
@@ -166,9 +163,7 @@ public class MazeBuild{
 
     private void MakeEWall(int x, int y)
     {
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        wall.GetComponent<Renderer>().material = Gray;
-        wall.transform.localScale = new Vector3(3, 3, 0.25F);
+        GameObject wall = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/WallPrefab") as GameObject);
         wall.transform.Rotate(new Vector3(0, 90, 0));
         wall.transform.position = new Vector3(3 * (x + 1), 1.5F, (3 * y) + 1.5F);
         wall.name = "EWall (" + x.ToString() + ", " + y.ToString() + ")";
