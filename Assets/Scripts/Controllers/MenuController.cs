@@ -93,6 +93,11 @@ public class MenuController : MonoBehaviour {
         }
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     private GameObject GetMenu(Menu menu)
     {
         switch (menu)
